@@ -253,42 +253,160 @@
         }
          /* Education Section */
          .education {
-            padding-top: 8rem;
-        }
-        .education h2 {
-            font-size: 4.5rem;
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-        .education-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-            gap: 3rem;
-        }
-        .education-box {
-            background: rgba(183, 75, 75, 0.1);
-            border: 2px solid #b74b4b;
-            border-radius: 1rem;
-            padding: 2.5rem;
-            transition: .5s ease;
-        }
-        .education-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 25px rgba(183, 75, 75, 0.3);
-        }
-        .education-box h3 {
-            font-size: 2.4rem;
-            margin-bottom: 1.5rem;
-        }
-        .education-box p {
-            font-size: 1.6rem;
-            line-height: 1.8;
-        }
-        .year {
-            font-size: 1.5rem;
-            color: #b74b4b;
-            margin-bottom: 1rem;
-        }
+    padding-top: 8rem;
+    min-height: 100vh;
+}
+
+.education h2 {
+    font-size: 4.5rem;
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #b74b4b;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.container {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    left: 50%;
+}
+
+.content {
+    background: rgba(183, 75, 75, 0.1);
+    border: 2px solid #b74b4b;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    position: relative;
+    transition: .5s ease;
+}
+
+.content:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(183, 75, 75, 0.3);
+}
+
+.content h2 {
+    font-size: 2.4rem;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+.content h4 {
+    font-size: 1.8rem;
+    color: #b74b4b;
+    margin: 0.5rem 0;
+}
+
+.content p {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    margin: 1rem 0;
+}
+
+.year {
+    font-size: 1.5rem;
+    color: #b74b4b;
+    margin-bottom: 1rem;
+}
+
+/* Logo styles */
+.school-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    background: rgba(183, 75, 75, 0.1);
+    padding: 5px;
+    border: 3px solid #b74b4b;
+    object-fit: cover;
+    transition: .5s ease;
+}
+
+.school-logo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(183, 75, 75, 0.4);
+}
+
+.left .school-logo {
+    right: -40px;
+    top: 50%;
+    transform: translate(50%, -50%);
+    z-index: 1;
+}
+
+.right .school-logo {
+    left: -40px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* Responsive styling */
+@media screen and (max-width: 768px) {
+    .timeline::after {
+        left: 31px;
+    }
+    
+    .container {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+    
+    .right {
+        left: 0%;
+    }
+    
+    .content {
+        padding: 2rem;
+    }
+    
+    .school-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .left .school-logo,
+    .right .school-logo {
+        left: 0;
+        transform: translate(-50%, -50%);
+    }
+    
+    .content h2 {
+        font-size: 2rem;
+    }
+    
+    .content h4 {
+        font-size: 1.6rem;
+    }
+    
+    .content p {
+        font-size: 1.4rem;
+    }
+}
         @media (max-width: 991px) {
             .header {
                 padding: 2rem 3%;
@@ -1048,35 +1166,37 @@
         </div>
     </section>
     <section class="education" id="education">
-        <h2 class="heading">My <span>Education</span></h2>
-        <div class="timeline">
-            <div class="container left">
-                <div class="content">
-                    <h2>2023 - 2027</h2>
-                    
-                    <h2>B.Tech in Computer Science</h2>
-                    <h4>Lovely Professional University</h4>
-                    <p>Currently pursuing my bachelor's degree with a focus on algorithms, data structures, and software development.</p>
-                </div>
-            </div>
-            <div class="container right">
-                <div class="content">
-                    <h2>2021 - 2023</h2>
-                    <h2>Senior Secondary Education</h2>
-                    <h4>Trident Public School</h4>
-                    <p>Completed with distinction in Mathematics and Science, laying the foundation for my engineering journey.</p>
-                </div>
-            </div>
-            <div class="container left">
-                <div class="content">
-                    <h2>2020 - 2021</h2>
-                    <h2>Higher Secondary Education</h2>
-                    <h4>G.D.Mother.International School</h4>
-                    <p>Completed with distinction in Mathematics and Science, laying the foundation for my journey.</p>
-                </div>
+    <h2 class="heading">My <span>Education</span></h2>
+    <div class="timeline">
+        <div class="container left">
+            <div class="content">
+                <img src="https://media-hosting.imagekit.io//46edf15ee59d4822/screenshot_1739633183099.png?Expires=1834241184&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=FNfJb6JEaiWryIN1d77O0Bww9HT2wrIordQDj6TakCWAdkN08HptL9YC3WpMUbfAt7l1B0mu5Uae84wBtO9WqvLmM-RlIMHpf61INfhFD-IUk1~IhTLWhdZPdgP5aVduDJG6Hj7A2c7mWBUdfeZaLXwIDb2bTtiy6adurng1Hl73aUZjFEtqHo-zH1v28RQXsEI4iXVQ1TCfC2GH-rE4kHbVofsXcv6~06VFAYaqWLSFxdfgNwnHrUI9Zz9pBzKXscsI7XAw3SsmreWhPG4eCD7X3tSVTI3B9cGRjRikZuflcwq~ywNLIZ~wPAhzphDrKBqMlPigl~TDS6jW8l~lgw__" alt="LPU Logo" class="school-logo">
+                <h2>2023 - 2027</h2>
+                <h2>B.Tech in Computer Science</h2>
+                <h4>Lovely Professional University</h4>
+                <p>Currently pursuing my bachelor's degree with a focus on algorithms, data structures, and software development.</p>
             </div>
         </div>
-    </section>
+        <div class="container right">
+            <div class="content">
+                <img src="https://media-hosting.imagekit.io//95ea8bb276e4486e/screenshot_1739633090882.png?Expires=1834241092&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=h-GY5LkFAuf6~rZ2AV7lWh8KI2qRnVIlWmVUkSk1UHKOVTIUmRd-z-sWYTu3742oe1sHsRO2MSYooZn9d-37jON-IUMIaGv8b0zqouHm177bR0wEMFmNU22WVS6VPtpJIPcMl7S0k3xS1Hu5gRLghFCvG5Er4vYROI15uSaEzYU127VjXZOsq1Jse8YwCeBsP-LK4viJdX6cXT2Z68wIxPQn1L~vjIx4ROhlxvTGDob~BRSmiZ67XyP0VRhsABlPlP~3NyY7RDcBrgT7BcdIXkpeOw1hpjq-ho0Tr6qf4~RVHLRaNawiiVXppIPNnq5wfr73NKluB1wJvgNb-oEjPQ__" alt="Trident Public School Logo" class="school-logo">
+                <h2>2021 - 2023</h2>
+                <h2>Senior Secondary Education</h2>
+                <h4>Trident Public School</h4>
+                <p>Completed with distinction in Mathematics and Science, laying the foundation for my engineering journey.</p>
+            </div>
+        </div>
+        <div class="container left">
+            <div class="content">
+                <img src="https://media-hosting.imagekit.io//1c828faa102746b6/screenshot_1739633035020.png?Expires=1834241037&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=DlfK2M0X1WYmGF99SFpQRiO3fcnZlDLxRhhmZY~pDGpWySL2lGS7Q0Jb732BNRpe7AqtQ12DzqOTCxgW2zozq2MYESsKGeIXhHogBXWzXr35KyXozXPZOGopCbXXzIoVXrey3FDXVOVKE0N3hWjS~3pOGTAbzx94eCUfI216M~qngyyA7-wNnSebO-MKH6eHWWkrgOO~jYt3vPwtEllV2CK-xc92axarWB-ZsPD-MHyZ99yI3GvMSqL-yVsSdS2BW1JSh3a0TINIfvuGYAa6PepxaJxvW40Q0SlvF4lYElvJrUW6ouUZdicvwa1rzCfGwsrGlGZi4UVyvAMWkm0jyA__" alt="G.D.Mother.International School Logo" class="school-logo">
+                <h2>2020 - 2021</h2>
+                <h2>Higher Secondary Education</h2>
+                <h4>G.D.Mother.International School</h4>
+                <p>Completed with distinction in Mathematics and Science, laying the foundation for my journey.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section class="projects" id="projects">
         <h2 class="heading">My <span>Projects</span></h2>
