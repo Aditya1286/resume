@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aditya's Portfolio</title>
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
@@ -1129,9 +1132,95 @@
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
   }
+        /* Preloader styles */
+        #preloader-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #000;
+            z-index: 9999;
+        }
+        
+        #preloader-canvas-container {
+            width: 80vw;
+            max-width: 300px;
+            height: 80vw;
+            max-height: 300px;
+            position: relative;
+        }
+        
+        #preloader-canvas-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .loading-text {
+            position: absolute;
+            bottom: 20%;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .progress-container {
+            position: absolute;
+            bottom: 15%;
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4F35FF, #FF65E7);
+            border-radius: 4px;
+        }
+        
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            #preloader-canvas-container {
+                width: 70vw;
+                height: 70vw;
+            }
+            
+            .loading-text {
+                font-size: 14px;
+                letter-spacing: 3px;
+            }
+            
+            .progress-container {
+                width: 150px;
+            }
+        }
+        
+        /* Hide the main content initially */
+        #main-content {
+            display: none;
+        }
     </style>
 </head>
 <body>
+     <!-- Preloader -->
+    <div id="preloader-container">
+        <div id="preloader-canvas-container"></div>
+        <div class="loading-text">Loading</div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
     <header>
         <a href="#" class="logo">Aditya</a>
         <nav>
@@ -1690,6 +1779,207 @@
                 track.style.transition = 'transform 0.5s ease';
             }
         });
+    </script>
+    <script>
+        // Initialize Three.js scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(300, 300);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('preloader-canvas-container').appendChild(renderer.domElement);
+
+        // Set camera position
+        camera.position.z = 2.5;
+
+        // Create lighting
+        const ambientLight = new THREE.AmbientLight(0x404040, 1);
+        scene.add(ambientLight);
+
+        const pointLight1 = new THREE.PointLight(0xFF65E7, 2, 10);
+        pointLight1.position.set(2, 1, 2);
+        scene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0x4F35FF, 2, 10);
+        pointLight2.position.set(-2, -1, 2);
+        scene.add(pointLight2);
+
+        // Create main sphere
+        const geometry = new THREE.SphereGeometry(0.8, 64, 64);
+        
+        // Create custom shader material for the sphere
+        const customMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 0 },
+                color1: { value: new THREE.Color("#FF65E7") },
+                color2: { value: new THREE.Color("#4F35FF") }
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                varying vec3 vNormal;
+                varying vec3 vPosition;
+                
+                void main() {
+                    vUv = uv;
+                    vNormal = normalize(normalMatrix * normal);
+                    vPosition = position;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform vec3 color1;
+                uniform vec3 color2;
+                
+                varying vec2 vUv;
+                varying vec3 vNormal;
+                varying vec3 vPosition;
+                
+                void main() {
+                    float noise = sin(vPosition.x * 8.0 + time) * sin(vPosition.y * 8.0 + time) * sin(vPosition.z * 8.0 + time);
+                    float fresnel = pow(1.0 + dot(normalize(vPosition), vNormal), 2.0);
+                    
+                    vec3 finalColor = mix(color1, color2, fresnel * 0.5 + noise * 0.5);
+                    finalColor = mix(finalColor, vec3(1.0), fresnel * 0.3);
+                    
+                    gl_FragColor = vec4(finalColor, 1.0);
+                }
+            `
+        });
+
+        const sphere = new THREE.Mesh(geometry, customMaterial);
+        scene.add(sphere);
+
+        // Create rings
+        const ringGeometry = new THREE.RingGeometry(1.2, 1.25, 64);
+        const ringMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0xffffff, 
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.5
+        });
+        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+        ring.rotation.x = Math.PI / 2;
+        scene.add(ring);
+
+        // Create second ring at a different angle
+        const ring2 = new THREE.Mesh(ringGeometry, ringMaterial);
+        ring2.rotation.x = Math.PI / 4;
+        ring2.rotation.y = Math.PI / 4;
+        scene.add(ring2);
+
+        // Create glowing particles for the outer ring
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 150;
+        const posArray = new Float32Array(particlesCount * 3);
+        
+        for(let i = 0; i < particlesCount * 3; i+=3) {
+            const angle = (i / 3) * (Math.PI * 2 / particlesCount);
+            const radius = 1.225;
+            posArray[i] = Math.cos(angle) * radius;
+            posArray[i+1] = 0;
+            posArray[i+2] = Math.sin(angle) * radius;
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0xffffff,
+            transparent: true,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+
+        // Animation loop
+        let time = 0;
+        let progress = 0;
+        const loadingText = document.querySelector('.loading-text');
+        const progressBar = document.querySelector('.progress-bar');
+        const dots = ['.', '..', '...'];
+        let dotIndex = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Animate sphere rotation for full revolution
+            sphere.rotation.y += 0.01;
+            sphere.rotation.x += 0.008;
+            sphere.rotation.z += 0.005;
+            
+            // Animate ring rotation
+            ring.rotation.z += 0.005;
+            ring2.rotation.z -= 0.007;
+            particles.rotation.z -= 0.01;
+            
+            // Update shader time uniform
+            time += 0.02;
+            customMaterial.uniforms.time.value = time;
+            
+            // Update progress
+            if (progress < 100) {
+                progress += 0.5;
+                progressBar.style.width = `${progress}%`;
+                
+                // Animate loading text dots
+                if (time % 20 === 0) {
+                    dotIndex = (dotIndex + 1) % dots.length;
+                    loadingText.textContent = `Loading${dots[dotIndex]}`;
+                }
+            }
+            
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize and maintain aspect ratio
+        function resizePreloader() {
+            const container = document.getElementById('preloader-canvas-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        }
+
+        window.addEventListener('resize', resizePreloader);
+        resizePreloader(); // Initial resize
+
+        // Add 3D camera movement
+        gsap.to(camera.position, {
+            x: 0.3,
+            y: 0.3,
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+        
+        // After simulated loading completes
+        setTimeout(() => {
+            // Hide preloader and show main content
+            gsap.to('#preloader-container', {
+                opacity: 0,
+                duration: 1,
+                onComplete: () => {
+                    document.getElementById('preloader-container').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    
+                    // Optional: Add an entrance animation for the main content
+                    gsap.from('#main-content', {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        }, 3000); // 3 seconds for the preloader to show
+
+        // Start animation
+        animate();
     </script>
     <div class="signature-container">
         <div class="signature-text">
