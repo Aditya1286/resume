@@ -128,7 +128,7 @@ npm run build
 - Your Name
 - Email: aishwaryaaditya2@gmail.com
 - LinkedIn: https://www.linkedin.com/in/aditya-aishwarya
-- GitHub: [Your GitHub Profile]
+- GitHub: https://github.com/Aditya1286
 
 ---
 
