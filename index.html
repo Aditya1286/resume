@@ -10,6 +10,265 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        .education {
+            padding: 80px 10%;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .education::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMjIyIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=');
+            opacity: 0.2;
+        }
+        
+        .heading {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .heading::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #64ffda, transparent);
+        }
+        
+        .heading .highlight {
+            color: #64ffda;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #64ffda, #00bfa6);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+            animation: pulse-line 2s infinite;
+        }
+        
+        .container {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            perspective: 1000px;
+        }
+        
+        .container.left {
+            left: 0;
+        }
+        
+        .container.right {
+            left: 50%;
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 4px solid #64ffda;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.8);
+        }
+        
+        .container.left::after {
+            right: -10px;
+        }
+        
+        .container.right::after {
+            left: -10px;
+        }
+        
+        .content {
+            padding: 20px 30px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+        }
+        
+        .content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(100, 255, 218, 0.4);
+        }
+        
+        .date-ribbon {
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: linear-gradient(90deg, #64ffda, #00bfa6);
+            color: #0f172a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .school-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 3px solid rgba(100, 255, 218, 0.5);
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+            display: block;
+            margin: 15px auto;
+            transition: all 0.3s ease;
+        }
+        
+        .education-details {
+            margin-top: 15px;
+        }
+        
+        .education-details h3 {
+            color: #64ffda;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .education-details h4 {
+            color: #ccd6f6;
+            font-size: 1.1rem;
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+        
+        .education-details p {
+            color: #a8b2d1;
+            line-height: 1.6;
+        }
+        
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .tag {
+            background: rgba(100, 255, 218, 0.15);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #64ffda;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(100, 255, 218, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(100, 255, 218, 0);
+            }
+        }
+        
+        @keyframes pulse-line {
+            0% {
+                box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(100, 255, 218, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(100, 255, 218, 0);
+            }
+        }
+        
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: reveal 0.6s forwards;
+        }
+        
+        .container:nth-child(1) .reveal-card {
+            animation-delay: 0.2s;
+        }
+        
+        .container:nth-child(2) .reveal-card {
+            animation-delay: 0.4s;
+        }
+        
+        .container:nth-child(3) .reveal-card {
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Media queries for responsive design */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .container.right {
+                left: 0%;
+            }
+            
+            .container.left::after, .container.right::after {
+                left: 22px;
+            }
+        }
+    </style>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 
         * {
@@ -1253,35 +1512,60 @@
         <div class="home-img">
             <img src="https://images.stockcake.com/public/5/e/6/5e6fb906-70e0-4ec9-9df9-fb564a8fec74_large/coder-at-work-stockcake.jpg" alt="profile">
         </div>
-    </section>
     <section class="education" id="education">
-    <h2 class="heading">My <span>Education</span></h2>
+    <h2 class="heading">My <span class="highlight">Education</span> Journey</h2>
+    
     <div class="timeline">
-        <div class="container left">
+        <!-- Current Education -->
+        <div class="container left reveal-card">
             <div class="content">
-                <img src="https://media-hosting.imagekit.io//46edf15ee59d4822/screenshot_1739633183099.png?Expires=1834241184&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=FNfJb6JEaiWryIN1d77O0Bww9HT2wrIordQDj6TakCWAdkN08HptL9YC3WpMUbfAt7l1B0mu5Uae84wBtO9WqvLmM-RlIMHpf61INfhFD-IUk1~IhTLWhdZPdgP5aVduDJG6Hj7A2c7mWBUdfeZaLXwIDb2bTtiy6adurng1Hl73aUZjFEtqHo-zH1v28RQXsEI4iXVQ1TCfC2GH-rE4kHbVofsXcv6~06VFAYaqWLSFxdfgNwnHrUI9Zz9pBzKXscsI7XAw3SsmreWhPG4eCD7X3tSVTI3B9cGRjRikZuflcwq~ywNLIZ~wPAhzphDrKBqMlPigl~TDS6jW8l~lgw__" alt="LPU Logo" class="school-logo">
-                <h2>2023 - 2027</h2>
-                <h2>B.Tech in Computer Science</h2>
-                <h4>Lovely Professional University</h4>
-                <p>Currently pursuing my bachelor's degree with a focus on algorithms, data structures, and software development.</p>
+                <div class="date-ribbon">2023 - 2027</div>
+                <img src="https://media-hosting.imagekit.io//46edf15ee59d4822/screenshot_1739633183099.png" alt="LPU Logo" class="school-logo pulse">
+                <div class="education-details">
+                    <h3>B.Tech in Computer Science</h3>
+                    <h4><i class="fas fa-university"></i> Lovely Professional University</h4>
+                    <div class="tag-container">
+                        <span class="tag">Algorithms</span>
+                        <span class="tag">Data Structures</span>
+                        <span class="tag">Software Development</span>
+                    </div>
+                    <p>Currently pursuing my bachelor's degree with focus on advanced computing concepts and cutting-edge technologies. Actively participating in coding competitions and research projects.</p>
+                </div>
             </div>
         </div>
-        <div class="container right">
+        
+        <!-- Senior Secondary -->
+        <div class="container right reveal-card">
             <div class="content">
-                <img src="https://media-hosting.imagekit.io//95ea8bb276e4486e/screenshot_1739633090882.png?Expires=1834241092&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=h-GY5LkFAuf6~rZ2AV7lWh8KI2qRnVIlWmVUkSk1UHKOVTIUmRd-z-sWYTu3742oe1sHsRO2MSYooZn9d-37jON-IUMIaGv8b0zqouHm177bR0wEMFmNU22WVS6VPtpJIPcMl7S0k3xS1Hu5gRLghFCvG5Er4vYROI15uSaEzYU127VjXZOsq1Jse8YwCeBsP-LK4viJdX6cXT2Z68wIxPQn1L~vjIx4ROhlxvTGDob~BRSmiZ67XyP0VRhsABlPlP~3NyY7RDcBrgT7BcdIXkpeOw1hpjq-ho0Tr6qf4~RVHLRaNawiiVXppIPNnq5wfr73NKluB1wJvgNb-oEjPQ__" alt="Trident Public School Logo" class="school-logo">
-                <h2>2021 - 2023</h2>
-                <h2>Senior Secondary Education</h2>
-                <h4>Trident Public School</h4>
-                <p>Completed with distinction in Mathematics and Science, laying the foundation for my engineering journey.</p>
+                <div class="date-ribbon">2021 - 2023</div>
+                <img src="https://media-hosting.imagekit.io//95ea8bb276e4486e/screenshot_1739633090882.png" alt="Trident Public School Logo" class="school-logo pulse">
+                <div class="education-details">
+                    <h3>Senior Secondary Education</h3>
+                    <h4><i class="fas fa-school"></i> Trident Public School</h4>
+                    <div class="tag-container">
+                        <span class="tag">Mathematics</span>
+                        <span class="tag">Science</span>
+                        <span class="tag">Computer Science</span>
+                    </div>
+                    <p>Completed with distinction, earning recognition for academic excellence. Participated in national-level science competitions and developed strong analytical skills.</p>
+                </div>
             </div>
         </div>
-        <div class="container left">
+        
+        <!-- Higher Secondary -->
+        <div class="container left reveal-card">
             <div class="content">
-                <img src="https://media-hosting.imagekit.io//d9be72e76e9e4c17/screenshot_1739633421699.png?Expires=1834241424&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=KLh-xID5lulthN2B3C~rBuI~SPoLhi-60eOD2-UWMs54PFlX3j0y85UP9dOpWcyYercjc8NFR7~CurHZGnVzdTZ9NaMnAt2gL9s1PehUKXqYQxJxPL13TKsQz8Tjnbg~6e~aaDT-fa0JEHxcrzO73C2Sd5SNiXJVOyez--~uDpTMMnT6Gn1VQ-Lkxvw6InfbYfh~uTHhqyN~0ChIuke-zhsNvnHPufOK~XQl5UQJtv5WuIYAOQl-JxP2tsd8-Mq4lA35Z-WNKHuxzKQMmvxqqYyXn45DCDHBT6koKLRJmZwiGN3OD4jIwPMgPNJOHhOLR9sE~Tpfdmt6c9jBfI6w8Q__" alt="G.D.Mother.International School Logo" class="school-logo">
-                <h2>2020 - 2021</h2>
-                <h2>Higher Secondary Education</h2>
-                <h4>G.D.Mother.International School</h4>
-                <p>Completed with distinction in Mathematics and Science, laying the foundation for my journey.</p>
+                <div class="date-ribbon">2020 - 2021</div>
+                <img src="https://media-hosting.imagekit.io//d9be72e76e9e4c17/screenshot_1739633421699.png" alt="G.D.Mother.International School Logo" class="school-logo pulse">
+                <div class="education-details">
+                    <h3>Higher Secondary Education</h3>
+                    <h4><i class="fas fa-graduation-cap"></i> G.D.Mother.International School</h4>
+                    <div class="tag-container">
+                        <span class="tag">Mathematics</span>
+                        <span class="tag">Science</span>
+                    </div>
+                    <p>Built a strong foundation in core STEM subjects. Active member of the school's science club and participated in various interschool competitions.</p>
+                </div>
             </div>
         </div>
     </div>
