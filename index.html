@@ -9,6 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome for navigation icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 
@@ -900,11 +904,22 @@
     overflow: hidden;
 }
 
+.heading {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+.heading span {
+    color: #b74b4b;
+}
+
 .certificates-container {
     position: relative;
     padding: 20px 0;
     max-width: 1200px;
     margin: 0 auto;
+    overflow: hidden; /* Prevent horizontal scrollbar */
 }
 
 .certificates-track {
@@ -912,136 +927,11 @@
     gap: 2rem;
     transition: transform 0.5s ease;
     cursor: grab;
+    padding: 10px 5px; /* Add some padding for shadow effect */
 }
 
 .certificate-card {
     min-width: calc(33.333% - 2rem); /* Show 3 cards at a time on large screens */
-    max-width: 400px;
-    background: rgba(183, 75, 75, 0.1);
-    border: 2px solid #b74b4b;
-    border-radius: 10px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    flex: 0 0 auto;
-}
-
-.certificate-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 1.5rem;
-}
-
-.certificate-card h3 {
-    font-size: 1.8rem;
-    color: #b74b4b;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-
-.certificate-card p {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-}
-
-.certificate-card .date {
-    font-size: 1.2rem;
-    color: #888;
-    display: block;
-    margin-top: auto;
-}
-
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: #b74b4b;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 1.8rem;
-    z-index: 2;
-    transition: all 0.3s ease;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .certificate-card {
-        min-width: calc(50% - 2rem); /* Show 2 cards at a time */
-    }
-}
-
-@media (max-width: 768px) {
-    .certificate-card {
-        min-width: calc(100% - 2rem); /* Show 1 card at a time */
-    }
-    
-    .certificates {
-        padding: 8rem 5% 2rem;
-    }
-    
-    .certificate-card h3 {
-        font-size: 1.6rem;
-    }
-    
-    .certificate-card p {
-        font-size: 1.3rem;
-    }
-    
-    .nav-btn {
-        width: 35px;
-        height: 35px;
-    }
-}
-
-@media (max-width: 480px) {
-    .certificates {
-        padding: 8rem 3% 2rem;
-    }
-    
-    .certificate-card {
-        min-width: calc(100% - 1rem);
-        padding: 1.5rem;
-    }
-    
-    .certificate-img {
-        height: 180px;
-    }
-}
-.section-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.section-btn {
-    padding: 1rem 2rem;
-    background: transparent;
-    border: 2px solid var(--primary-color);
-    border-radius: 2rem;
-    color: var(--primary-color);
-    font-size: 1.6rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.section-btn:hover {
-    background: var(--primary-color);
-    color: var(--bg-color);
-    box-shadow: 0 0 25px var(--primary-color);
-}
-
-/* Fix Certificate Card Styles */
-.certificate-card {
-    min-width: 300px;
     max-width: 400px;
     height: 450px; /* Fixed height */
     display: flex;
@@ -1051,6 +941,13 @@
     border-radius: 10px;
     padding: 2rem;
     transition: all 0.3s ease;
+    flex: 0 0 auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.certificate-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(183, 75, 75, 0.2);
 }
 
 .certificate-img {
@@ -1081,15 +978,94 @@
     color: #888;
 }
 
-/* Responsive adjustments */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #b74b4b;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.8rem;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:hover {
+    background: #a03e3e;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .certificate-card {
+        min-width: calc(50% - 2rem); /* Show 2 cards at a time */
+    }
+}
+
 @media (max-width: 768px) {
     .certificate-card {
-        min-width: 280px;
+        min-width: calc(100% - 2rem); /* Show 1 card at a time */
         height: 400px;
+    }
+    
+    .certificates {
+        padding: 8rem 5% 2rem;
+    }
+    
+    .certificate-card h3 {
+        font-size: 1.6rem;
+    }
+    
+    .certificate-card p {
+        font-size: 1.3rem;
     }
     
     .certificate-img {
         height: 200px;
+    }
+    
+    .nav-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .heading {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .certificates {
+        padding: 8rem 3% 2rem;
+    }
+    
+    .certificate-card {
+        min-width: calc(100% - 1rem);
+        padding: 1.5rem;
+        height: 380px;
+    }
+    
+    .certificate-img {
+        height: 180px;
+    }
+    
+    .heading {
+        font-size: 2.5rem;
     }
 }
 .signature-container {
@@ -1479,51 +1455,52 @@
                 <a href="https://www.codechef.com/users/your-profile" class="platform-link">View Profile</a>
             </div>
         </div>
-        </section>
-        <section class="certificates" id="certificates">
-            <h2 class="heading">My <span>Certificates</span></h2>
-            <div class="certificates-container">
-                <div class="nav-btn prev-btn">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-                <div class="nav-btn next-btn">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                <div class="certificates-track">
-                    <!-- Original certificates -->
-                    <div class="certificate-card">
-                        <img src="https://media-hosting.imagekit.io//99635f1e35c74c23/java.jpg?Expires=1836224392&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=YtiwZkYOUzF~~G298vlHbn92YklyCc4daZ8Y-v5cLWjJMZQ~8KCcu2fgIfd9jgT9FvCCHBFwF5AKdId15afwmhEFNdxS0p16sTXYiaUafzh25hyjC-xT2zD5O4Yc9agaf3ZNvAGe6vQ5yhcLBZhQtRKUu97iQT1FaY8HEt3g~WRf1~4b8aS57uqToXEsiSw1i0Gg4gvtieUIv6ofGcGXOm~cVLR4orPHZiQHUpTS8DHWOMxTGAPJMDXyC-gnKLnTQ5WBd~xy1FosRzA-B1svxdRcQZB~-n9sJCtWxVKaZH8IIm2SCBF6cHph456DiGLXa7PjnUdhEqUDsE4JYMxdew__" alt="Certificate 1" class="certificate-img">
-                        <h3>Java</h3>
-                        <p>Java Masterclass: 130+ hours of Expert Lessons by Udemy</p>
-                        <span class="date">Issued: March 2025</span>
-                    </div>
-                    <div class="certificate-card">
-                        <img src="https://media-hosting.imagekit.io//22ee62cbb5934246/screenshot_1739631997375.png?Expires=1834239999&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=EV3522ELCVYDICoBxE-09oMSiiUdvd4azCbFx50upAMJbZJXLiY8AnJPqkghlEmx7Krp5sdOsYHa5QTmsPxZih~qDIWNZXLTz8q5jv3cT3X5Vicd1gNuD3sLAT7-QJ6ieaakSL3C-eaW4thBCCoW2zVteX4zo~uc9eZPXZBzib2WD-g4TZuRUceK2602h-UlTRBe~Tow8l79HSGKU~vRo-UTGKprzGHTjiDbgmRcfYjgudNh38kdaDveWz~z6v6eyv6PujjqZozRK~rqtm7SiWv0gd37blK15vnMNPqAi5SlAKAU~IFoggJPVYW~HKLivhObWaWwPPzkv6KvLVniNA__" alt="Certificate 1" class="certificate-img">
-                        <h3>Web Development</h3>
-                        <p>Complete Web Development Bootcamp certification from freecodecamp</p>
-                        <span class="date">Issued: January 2024</span>
-                    </div>
-                    <div class="certificate-card">
-                        <img src="https://i.ibb.co/cxXjShp/download.png" alt="Certificate 2" class="certificate-img">
-                        <h3>Python Programming</h3>
-                        <p>Advanced Python Programming certification from Guvi X HCL</p>
-                        <span class="date">Issued: Jan 2024</span>
-                    </div>
-                    <div class="certificate-card">
-                        <img src="https://media-hosting.imagekit.io//b958841567c84c20/screenshot_1739632212837.png?Expires=1834240214&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Ubu5Bs~mtWW3Q1mltFSgKr64nSElRXhL9uN-YR3the3gMuX-Ui4sW5~Q6e7qJh8s57~XstgJVpu4GH74iJmpP~CiUdhm6S5h9gHU0OBP7Yy~ReUnr-~81cQc0H9OisqkOnD095mgOyImeDZYJJ8J--FQtxZ~G3-5UDPYNk9ZWzpEjK7slQjFjs8v1mlJUeDfuCTzR-XCo2r9safij~iEBUt-dUHVZp0yrjf1HYq-cr9GUGx9neQK9CPUOpogKHF13JGLv5znmMWK1C7dh~YFmim7FK1RRaraYwFXd-hRNJ6b66-T56vSU2ku7a-D1pL3Nw3WWaYq0WKyZye7ZNev1w__" alt="Certificate 3" class="certificate-img">
-                        <h3>SQL</h3>
-                        <p>SQL certification from IBM</p>
-                        <span class="date">Issued: Jun 2024</span>
-                    </div>
-                    <div class="certificate-card">
-                        <img src="https://media-hosting.imagekit.io//42885fd028a04341/Screenshot%202025-01-11%20192527.png?Expires=1831211783&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=2SbaatwKwCytek9KPozYZaZemv5WbT6KdYNcby0O8G7PqZMtIc07~MVQXGADjzU8zl0gRPjSZH7N0-BWW-KC0BjcoG4ObB6ikCMpw2-z7sCENgvjqJRJ6sWE2qhGYaapZHyfxlkxRUJsjymjC7qcJY8YQEU3gutVDqRrl6csChd7CTnjuBkFjOxFQgldId~Bqmm-mUfoQ0XIIjMN0xw-0GIcTF-e0vAuDQpGX9Nr~lS-Gi5KDaNcI7PFO0F3evMHLKaRElSC7Sk3aZoX3vRCMq2pZmD~gpydjcEXc0ez3vYVN5BRAbHm5QXj-pNitV~qnYkWxTb5ybsvNK9br9HXeA__" alt="Certificate 4" class="certificate-img">
-                        <h3>C Language</h3>
-                        <p>C Language by neocolab</p>
-                        <span class="date">Issued: May 2024</span>
-                    </div>
-                </div>
+       <section class="certificates" id="certificates">
+    <h2 class="heading">My <span>Certificates</span></h2>
+    <div class="certificates-container">
+        <div class="nav-btn prev-btn">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="nav-btn next-btn">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="certificates-track">
+            <!-- Original certificates -->
+            <div class="certificate-card">
+                <img src="https://media-hosting.imagekit.io//99635f1e35c74c23/java.jpg" alt="Java Certificate" class="certificate-img">
+                <h3>Java</h3>
+                <p>Java Masterclass: 130+ hours of Expert Lessons by Udemy</p>
+                <span class="date">Issued: March 2025</span>
             </div>
-    </section>
+            <div class="certificate-card">
+                <img src="https://media-hosting.imagekit.io//22ee62cbb5934246/screenshot_1739631997375.png" alt="Web Development Certificate" class="certificate-img">
+                <h3>Web Development</h3>
+                <p>Complete Web Development Bootcamp certification from freecodecamp</p>
+                <span class="date">Issued: January 2024</span>
+            </div>
+            <div class="certificate-card">
+                <img src="https://i.ibb.co/cxXjShp/download.png" alt="Python Certificate" class="certificate-img">
+                <h3>Python Programming</h3>
+                <p>Advanced Python Programming certification from Guvi X HCL</p>
+                <span class="date">Issued: Jan 2024</span>
+            </div>
+            <div class="certificate-card">
+                <img src="https://media-hosting.imagekit.io//b958841567c84c20/screenshot_1739632212837.png" alt="SQL Certificate" class="certificate-img">
+                <h3>SQL</h3>
+                <p>SQL certification from IBM</p>
+                <span class="date">Issued: Jun 2024</span>
+            </div>
+            <div class="certificate-card">
+                <img src="https://media-hosting.imagekit.io//42885fd028a04341/Screenshot%202025-01-11%20192527.png" alt="C Language Certificate" class="certificate-img">
+                <h3>C Language</h3>
+                <p>C Language by neocolab</p>
+                <span class="date">Issued: May 2024</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
     <section class="contact" id="contact">
         <h2 class="heading">Contact <span>Me</span></h2>
         <div class="contact-container">
@@ -1629,156 +1606,160 @@
         });
     </script>
     <script>
-        // Certificates Slider with Infinite Rotation
-        const track = document.querySelector('.certificates-track');
-        const cards = document.querySelectorAll('.certificate-card');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
+        document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.certificates-track');
+    const cards = document.querySelectorAll('.certificate-card');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
     
-        // Clone cards for infinite scroll
-        cards.forEach(card => {
-            const clone = card.cloneNode(true);
-            track.appendChild(clone);
-        });
+    // Clone cards for infinite scroll
+    cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
     
-        let currentIndex = 0;
-        const cardWidth = cards[0].offsetWidth + 32; // Including gap
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let isDragging = false;
-        let animationID = 0;
-        const totalCards = cards.length;
+    let currentIndex = 0;
+    let cardWidth = cards[0].offsetWidth + 32; // Including gap
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let isDragging = false;
+    let animationID = 0;
+    const totalCards = cards.length;
     
-        // Auto-scroll functionality
-        function autoScroll() {
-            currentIndex++;
-            updateSliderPosition(true);
-        }
+    // Auto-scroll functionality
+    function autoScroll() {
+        currentIndex++;
+        updateSliderPosition(true);
+    }
     
-        let autoScrollInterval = setInterval(autoScroll, 3000);
+    let autoScrollInterval = setInterval(autoScroll, 3000);
     
-        function resetInterval() {
-            clearInterval(autoScrollInterval);
-            autoScrollInterval = setInterval(autoScroll, 3000);
-        }
+    function resetInterval() {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = setInterval(autoScroll, 3000);
+    }
     
-        function updateSliderPosition(isAutoScroll = false) {
-            if (currentIndex >= totalCards) {
-                if (isAutoScroll) {
-                    // Smooth transition to first card
-                    currentIndex = 0;
-                    track.style.transition = 'none';
-                    currentTranslate = currentIndex * -cardWidth;
-                    track.style.transform = `translateX(${currentTranslate}px)`;
-                    
-                    // Force reflow
-                    track.offsetHeight;
-                    
-                    // Restore transition
-                    track.style.transition = 'transform 0.5s ease';
-                } else {
-                    currentIndex = totalCards - 1;
-                }
-            } else if (currentIndex < 0) {
+    function updateSliderPosition(isAutoScroll = false) {
+        if (currentIndex >= totalCards) {
+            if (isAutoScroll) {
+                // Smooth transition to first card
                 currentIndex = 0;
-            }
-    
-            currentTranslate = currentIndex * -cardWidth;
-            prevTranslate = currentTranslate;
-            setSliderPosition();
-        }
-    
-        function setSliderPosition() {
-            track.style.transform = `translateX(${currentTranslate}px)`;
-        }
-    
-        // Navigation buttons
-        prevBtn.addEventListener('click', () => {
-            currentIndex--;
-            updateSliderPosition();
-            resetInterval();
-        });
-    
-        nextBtn.addEventListener('click', () => {
-            currentIndex++;
-            updateSliderPosition();
-            resetInterval();
-        });
-    
-        // Touch events
-        track.addEventListener('touchstart', dragStart);
-        track.addEventListener('touchmove', drag);
-        track.addEventListener('touchend', dragEnd);
-    
-        // Mouse events
-        track.addEventListener('mousedown', dragStart);
-        track.addEventListener('mousemove', drag);
-        track.addEventListener('mouseup', dragEnd);
-        track.addEventListener('mouseleave', dragEnd);
-    
-        function dragStart(e) {
-            clearInterval(autoScrollInterval);
-            startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-            isDragging = true;
-            animationID = requestAnimationFrame(animation);
-            track.style.cursor = 'grabbing';
-        }
-    
-        function drag(e) {
-            if (isDragging) {
-                const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-                currentTranslate = prevTranslate + currentPosition - startPos;
-            }
-        }
-    
-        function dragEnd() {
-            isDragging = false;
-            cancelAnimationFrame(animationID);
-            track.style.cursor = 'grab';
-    
-            const movedBy = currentTranslate - prevTranslate;
-            if (Math.abs(movedBy) > 100) {
-                if (movedBy < 0) {
-                    currentIndex++;
-                } else {
-                    currentIndex--;
-                }
-            }
-    
-            updateSliderPosition();
-            resetInterval();
-        }
-    
-        function animation() {
-            if (isDragging) {
-                setSliderPosition();
-                requestAnimationFrame(animation);
-            }
-        }
-    
-        // Reset position on window resize
-        window.addEventListener('resize', () => {
-            cardWidth = cards[0].offsetWidth + 32;
-            updateSliderPosition();
-        });
-    
-        // Handle smooth transition when track animation ends
-        track.addEventListener('transitionend', () => {
-            if (currentIndex >= totalCards) {
                 track.style.transition = 'none';
-                currentIndex = 0;
-                currentTranslate = 0;
-                prevTranslate = 0;
-                setSliderPosition();
+                currentTranslate = currentIndex * -cardWidth;
+                track.style.transform = `translateX(${currentTranslate}px)`;
                 
                 // Force reflow
                 track.offsetHeight;
                 
                 // Restore transition
                 track.style.transition = 'transform 0.5s ease';
+            } else {
+                currentIndex = totalCards - 1;
             }
-        });
+        } else if (currentIndex < 0) {
+            currentIndex = 0;
+        }
+    
+        currentTranslate = currentIndex * -cardWidth;
+        prevTranslate = currentTranslate;
+        setSliderPosition();
+    }
+    
+    function setSliderPosition() {
+        track.style.transform = `translateX(${currentTranslate}px)`;
+    }
+    
+    // Navigation buttons
+    prevBtn.addEventListener('click', () => {
+        currentIndex--;
+        updateSliderPosition();
+        resetInterval();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        currentIndex++;
+        updateSliderPosition();
+        resetInterval();
+    });
+    
+    // Touch events
+    track.addEventListener('touchstart', dragStart);
+    track.addEventListener('touchmove', drag);
+    track.addEventListener('touchend', dragEnd);
+    
+    // Mouse events
+    track.addEventListener('mousedown', dragStart);
+    track.addEventListener('mousemove', drag);
+    track.addEventListener('mouseup', dragEnd);
+    track.addEventListener('mouseleave', dragEnd);
+    
+    function dragStart(e) {
+        clearInterval(autoScrollInterval);
+        startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        isDragging = true;
+        animationID = requestAnimationFrame(animation);
+        track.style.cursor = 'grabbing';
+    }
+    
+    function drag(e) {
+        if (isDragging) {
+            const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            currentTranslate = prevTranslate + currentPosition - startPos;
+        }
+    }
+    
+    function dragEnd() {
+        isDragging = false;
+        cancelAnimationFrame(animationID);
+        track.style.cursor = 'grab';
+    
+        const movedBy = currentTranslate - prevTranslate;
+        if (Math.abs(movedBy) > 100) {
+            if (movedBy < 0) {
+                currentIndex++;
+            } else {
+                currentIndex--;
+            }
+        }
+    
+        updateSliderPosition();
+        resetInterval();
+    }
+    
+    function animation() {
+        if (isDragging) {
+            setSliderPosition();
+            requestAnimationFrame(animation);
+        }
+    }
+    
+    // Reset position on window resize
+    window.addEventListener('resize', () => {
+        cardWidth = cards[0].offsetWidth + 32;
+        updateSliderPosition();
+    });
+    
+    // Handle smooth transition when track animation ends
+    track.addEventListener('transitionend', () => {
+        if (currentIndex >= totalCards) {
+            track.style.transition = 'none';
+            currentIndex = 0;
+            currentTranslate = 0;
+            prevTranslate = 0;
+            setSliderPosition();
+            
+            // Force reflow
+            track.offsetHeight;
+            
+            // Restore transition
+            track.style.transition = 'transform 0.5s ease';
+        }
+    });
+
+    // Initialize carousel position
+    updateSliderPosition();
+});
     </script>
     <script>
         // Initialize Three.js scene
